@@ -14,13 +14,16 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Setup Python
+      - name: Configurando o python
         uses: actions/setup-python@v2
         with:
           python-version: '3.7.11'
 
-      - name: Install Requirements
+      - name: Instalando requisitos
         run:  pip install flask
+
+      - name: Instalando unitest
+        run:  pip install unittest
               
-      - name: Unit Test
+      - name: Executando testes unitários
         run: python -m unittest -v test
