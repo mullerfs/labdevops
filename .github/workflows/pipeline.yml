@@ -13,3 +13,17 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
+
+      - name: Configurando o python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7.11'
+
+      - name: Instalando requisitos
+        run:  pip install flask
+
+      - name: Instalando unitest
+        run:  pip install unittest
+              
+      - name: Executando testes unitários
+        run: python -m unittest -v test
