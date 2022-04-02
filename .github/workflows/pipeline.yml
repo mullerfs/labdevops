@@ -14,15 +14,15 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Setup Python
+      - name: Configurando o python
         uses: actions/setup-python@v2
         with:
           python-version: '3.7.11'
 
-      - name: Install Requirements
+      - name: Instalando requisitos
         run:  pip install flask
               
-      - name: Unit Test
+      - name: Rodando Testes
         run: python -m unittest -v test
 
   Deploy:
@@ -60,3 +60,6 @@ jobs:
       # Enviando o código da App para o Heroku fazer Deploy
       - name: Push to Heroku & Deploy
         run: git push heroku HEAD:main --force
+        
+      - name: Executando testes unitários
+        run: python -m unittest -v test
