@@ -14,17 +14,18 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Configurando o python
+      - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.7.11'
 
-      - name: Instalando requisitos
+      - name: Install Requirements
         run:  pip install flask
-              
-      - name: Rodando Testes
+
+      - name: Unit Test
         run: python -m unittest -v test
-  sonarcloud:
+
+  SonarCloud:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
@@ -36,8 +37,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   Deploy:
-    needs: [Build,sonarcloud]
+    needs: [Build,SonarCloud]
     runs-on: ubuntu-latest
 
     steps:
@@ -71,4 +73,3 @@ jobs:
       # Enviando o código da App para o Heroku fazer Deploy
       - name: Push to Heroku & Deploy
         run: git push heroku HEAD:main --force
- 
